@@ -150,6 +150,11 @@ def train_progressive_gan(
     maintenance_start_time = time.time()
     training_set = dataset.load_dataset(data_dir=config.data_dir, verbose=True, **config.dataset)
 
+    # device = '/cpu:0'
+    # if(tf.test.is_gpu_available()):
+    #     device = '/gpu:0'
+    # print("Code starting on ",device)
+    # exit(0)
     # Construct networks.
     with tf.device('/gpu:0'):
         if resume_run_id is not None:

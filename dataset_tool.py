@@ -418,6 +418,7 @@ def create_lsun(tfrecord_dir, lmdb_dir, resolution=256, max_images=None):
                         img = img[:, :, ::-1] # BGR => RGB
                     except IOError:
                         img = np.asarray(PIL.Image.open(io.BytesIO(value)))
+
                     crop = np.min(img.shape[:2])
                     img = img[(img.shape[0] - crop) // 2 : (img.shape[0] + crop) // 2, (img.shape[1] - crop) // 2 : (img.shape[1] + crop) // 2]
                     img = PIL.Image.fromarray(img, 'RGB')
@@ -694,9 +695,9 @@ def execute_cmdline(argv):
     p.add_argument(     'svhn_dir',         help='Directory containing SVHN')
 
     p = add_command(    'create_lsun',      'Create dataset for single LSUN category.',
-                                            'create_lsun datasets/lsun-car-100k ~/downloads/lsun/car_lmdb --resolution 256 --max_images 100000')
-    p.add_argument(     'tfrecord_dir',     help='New dataset directory to be created')
-    p.add_argument(     'lmdb_dir',         help='Directory containing LMDB database')
+                                            'create_lsun --lmdb_dir D:/warwick/datasets/digestpath/processed/lmdb_dataset_for_progan --tfrecord_dir datasets/digestpath_512_256 --resolution 256 --max_images 100000')
+    p.add_argument(     '--tfrecord_dir',     help='New dataset directory to be created')
+    p.add_argument(     '--lmdb_dir',         help='Directory containing LMDB database')
     p.add_argument(     '--resolution',     help='Output resolution (default: 256)', type=int, default=256)
     p.add_argument(     '--max_images',     help='Maximum number of images (default: none)', type=int, default=None)
 
